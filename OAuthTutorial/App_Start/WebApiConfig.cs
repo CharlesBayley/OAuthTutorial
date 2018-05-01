@@ -9,7 +9,6 @@ namespace OAuthTutorial
     {
         public static void Register(HttpConfiguration config)
         {
-            // Web API configuration and services
 
             // Web API routes
             config.MapHttpAttributeRoutes();
@@ -19,6 +18,9 @@ namespace OAuthTutorial
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
+
+            var jsonFormatter = config.Formatters.OfType<JsonMediaTypeFormatter>().First();
+            jsonFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
         }
     }
 }
