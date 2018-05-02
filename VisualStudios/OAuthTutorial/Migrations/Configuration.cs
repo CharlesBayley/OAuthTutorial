@@ -1,6 +1,8 @@
 namespace OAuthTutorial.Migrations
 {
+    using OAuthTutorial.Models;
     using System;
+    using System.Collections.Generic;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
     using System.Linq;
@@ -26,6 +28,33 @@ namespace OAuthTutorial.Migrations
             //      new Person { FullName = "Rowan Miller" }
             //    );
             //
+
+            var contacts = new List<Contact>
+            {
+                new Contact
+                {
+                    Name = "Charles", Email = "cbay@hotmail.com", PhoneNumber = "5555555555", ContactMethod="Email"
+                },
+                new Contact
+                {
+                    Name = "Britney", Email = "catmom@hotmail.com", PhoneNumber = "5555555551", ContactMethod="Phone"
+                },
+                new Contact
+                {
+                    Name = "Kate", Email = "vegiieeeeee@hotmail.com", PhoneNumber = "5555552555", ContactMethod="Email"
+                },
+                new Contact
+                {
+                    Name = "Chris", Email = "cdog@hotmail.com", PhoneNumber = "5555585555", ContactMethod="Email"
+                },
+                new Contact
+                {
+                    Name = "Aaron", Email = "aa-ron@hotmail.com", PhoneNumber = "5556555555", ContactMethod="Phone"
+                }
+            };
+
+            contacts.ForEach(contact => context.Contacts.AddOrUpdate(x => x.Name, contact));
+            context.SaveChanges();
         }
     }
 }
