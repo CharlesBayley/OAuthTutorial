@@ -2,6 +2,8 @@ const app = angular.module("main", ['ngRoute', 'LocalStorageModule']);
 
 app.controller("mainController", ["$scope", "$http", ($scope, $http) => {
 
+  $scope.contacts = [];
+
   $scope.login = () => {
 
     const data = {
@@ -11,7 +13,6 @@ app.controller("mainController", ["$scope", "$http", ($scope, $http) => {
     }
 
     // to post a person
-
     $http({
       method: "POST",
       url: "http://localhost:54207/token",
@@ -29,8 +30,29 @@ app.controller("mainController", ["$scope", "$http", ($scope, $http) => {
       console.log(resp)
       // store the token
       if (resp.status == 200) {
-        localStorage.setItem("token", resp.data.access_token);
+        //localStorage.setItem("token", resp.data.access_token);
+        return resp.data;
       }
+    }).then(data => {
+      const access_token = data.access_token;
+      const token_type = data.token_type;
+
+      $http({
+        method: 'GET',
+        url: 'http://localhost:54207/api/contacts',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+          Authorization: `${token_type} ${access_token}`
+        }
+      }).then(resp => {
+        console.log(resp);
+        if (resp.status === 200) {
+          return resp.data;
+        }
+      }).then(data => {
+        $scope.contacts = data;
+      });
     })
   }
 
@@ -64,6 +86,7 @@ app.controller('signupController', ['$scope', '$http', function ($scope, $http) 
       $scope.message = 'Signup worked! Now login!'
       console.log(data); // TODO: We need a data response to automate login later
     })
+
     // the login post
 
     var startTimer = function () {
