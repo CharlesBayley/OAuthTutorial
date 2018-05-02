@@ -1,10 +1,13 @@
-﻿using System.Threading.Tasks;
+﻿using System.Security.Claims;
+using System.Threading.Tasks;
+using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Owin.Security.OAuth;
 
 namespace OAuthTutorial
 {
     public class SimpleAuthorizationServerProvider : OAuthAuthorizationServerProvider
     {
+        // TODO: Does this have to be async?
         public override async Task ValidateClientAuthentication(OAuthValidateClientAuthenticationContext context)
         {
             context.Validated();
