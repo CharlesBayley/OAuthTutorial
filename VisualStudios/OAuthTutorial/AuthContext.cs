@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNet.Identity.EntityFramework;
+using OAuthTutorial.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 
@@ -10,8 +12,8 @@ namespace OAuthTutorial
     {
         public AuthContext()
             : base("AuthContext")
-        {
+        { }
 
-        }
+        public DbSet<Contact> Contacts { get; set; }
     }
 }
