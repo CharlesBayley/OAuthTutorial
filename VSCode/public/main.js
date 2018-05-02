@@ -48,8 +48,22 @@ app.controller('signupController', ['$scope', '$http', function ($scope, $http) 
   };
 
   $scope.signUp = function () {
+    console.log($scope.registration)
 
     // the sign up post
+    $http({
+      method: "POST",
+      url: "http://localhost:54207/api/account/register",
+      data: $scope.registration
+    }).then(resp => {
+      console.log(resp)
+      if (resp.status === 200) {
+        return resp.data;
+      }
+    }).then(data => {
+      $scope.message = 'Signup worked! Now login!'
+      console.log(data); // TODO: We need a data response to automate login later
+    })
     // the login post
 
     var startTimer = function () {
