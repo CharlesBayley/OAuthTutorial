@@ -130,6 +130,7 @@
     <Compile Include="AuthContext.cs" />
     <Compile Include="AuthRepository.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ContactsController.cs" />
     <Compile Include="Controllers\OrdersController.cs" />
     <Compile Include="Migrations\201805021833003_Initial.cs" />
     <Compile Include="Migrations\201805021833003_Initial.Designer.cs">
